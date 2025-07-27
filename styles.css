@@ -395,6 +395,36 @@ body {
     font-weight: 500;
 }
 
+.project-links {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    background: #f1f5f9;
+}
+
+.project-link:hover {
+    background: #e0e7ff;
+    color: #3730a3;
+    transform: translateY(-1px);
+}
+
+.project-link i {
+    font-size: 1rem;
+}
+
 /* Skills Grid */
 .skills-grid {
     display: grid;
