@@ -107,12 +107,82 @@ function validateEmail(email) {
 // Add loading animation
 window.addEventListener('load', function() {
     document.body.style.opacity = '0';
-    document.body.style.transition = 'opacity 0.5s ease';
+    document.body.style.transition = 'opacity 0.8s ease';
     
     setTimeout(() => {
         document.body.style.opacity = '1';
     }, 100);
 });
+
+// Parallax scrolling effect
+window.addEventListener('scroll', function() {
+    const scrolled = window.pageYOffset;
+    const parallax = document.querySelector('.hero');
+    const speed = scrolled * 0.5;
+    
+    if (parallax) {
+        parallax.style.transform = `translateY(${speed}px)`;
+    }
+});
+
+// Typing effect for hero title
+function typeWriter(element, text, speed = 100) {
+    let i = 0;
+    element.innerHTML = '';
+    
+    function type() {
+        if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+        }
+    }
+    
+    type();
+}
+
+// Initialize typing effect
+const heroTitle = document.querySelector('.hero-title');
+if (heroTitle) {
+    const originalText = heroTitle.textContent;
+    setTimeout(() => {
+        typeWriter(heroTitle, originalText, 80);
+    }, 500);
+}
+
+// Animate numbers in stats
+function animateNumbers() {
+    const stats = document.querySelectorAll('.stat h3');
+    stats.forEach(stat => {
+        const target = parseInt(stat.textContent);
+        let current = 0;
+        const increment = target / 50;
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                stat.textContent = target + (stat.textContent.includes('+') ? '+' : '');
+                clearInterval(timer);
+            } else {
+                stat.textContent = Math.floor(current) + (stat.textContent.includes('+') ? '+' : '');
+            }
+        }, 30);
+    });
+}
+
+// Trigger number animation when stats come into view
+const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            animateNumbers();
+            statsObserver.unobserve(entry.target);
+        }
+    });
+});
+
+const statsSection = document.querySelector('.about-stats');
+if (statsSection) {
+    statsObserver.observe(statsSection);
+}
 
 // Typing effect for hero title (optional enhancement)
 function typeWriter(element, text, speed = 100) {
